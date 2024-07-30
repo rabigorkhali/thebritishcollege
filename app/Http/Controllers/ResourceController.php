@@ -152,6 +152,7 @@ class ResourceController extends Controller
             $this->service->update($request, $id);
             return redirect($this->indexUrl())->withErrors(['alert-success' => __('messages.update_message')]);
         } catch (Throwable $throwable) {
+            dd($throwable);
             return redirect()->back()->withErrors(['alert-danger' => __('messages.server_error')]);
         }
     }
