@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Throwable;
 use DB;
+use Illuminate\Support\Str;
+
 
 class ResourceController extends Controller
 {
@@ -48,12 +50,8 @@ class ResourceController extends Controller
         $data['indexUrl'] = $this->indexUrl();
         $data['title'] = $data['title'] ?? $this->moduleName() ?? 'Your title is missing.';
         if (isset($data['items'])) {
-            $data[$this->moduleName()] = $data['items'];
+            $data[Str::camel($this->moduleName())] = $data['items'];
             unset($data['items']);
-        }
-        if (isset($data['item'])) {
-            $data[$this->moduleName()] = $data['item'];
-            unset($data['item']);
         }
         return view($this->viewFolder() . '.' . $viewFile, $data)->render();
     }
@@ -121,6 +119,7 @@ class ResourceController extends Controller
             $data = $this->service->editPageData($request, $id);
             return $this->renderView('edit', $data);
         } catch (Throwable $throwable) {
+            dd($throwable);
             return redirect()->back()->withErrors(['alert-danger' => __('messages.server_error')]);
         }
     }
@@ -128,7 +127,7 @@ class ResourceController extends Controller
     public function show($id)
     {
         try {
-            $data['user'] = $this->service->itemByIdentifier($id);
+            $data[Str::camel($this->moduleName())] = $this->service->itemByIdentifier($id);
             $data['title'] = $this->moduleName() . ' Detail';
             return $this->renderView('show', $data);
         } catch (Throwable $throwable) {

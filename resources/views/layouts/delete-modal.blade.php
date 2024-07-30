@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="confirmationText">Are you sure you want to delete this item?</p>
+                <p id="confirmationText">Are you sure you want to delete this record?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

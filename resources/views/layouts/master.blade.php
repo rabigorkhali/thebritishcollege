@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{  'Rabi Gorkhali Assignment' }}</title>
+    <title>{{  'Rabi Gorkhali' }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -32,7 +32,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">{{ __(ucfirst($title ?? '')) }}</div>
+                            <div class="card-header">{{ __(ucwords(str_replace('-', ' ', $title))) }}</div>
                             <div class="card-body">
                                 <!-- Success Message -->
                                 @if ($errors->first('alert-success'))

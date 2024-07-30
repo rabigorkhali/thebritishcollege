@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex flex-column" href="{{ url('/home') }}">
-            {{__('The British College | Rabi Gorkhali Assignment') }}
+            {{__('The British College | Rabi Gorkhali') }}
         </a>
         <br>
 
@@ -19,12 +19,12 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
-                    {{-- 
+
                     @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                    @endif --}}
+                    @endif
                 @else
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
@@ -32,9 +32,11 @@
                                 <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                <a class="nav-link" href="{{ route('post-categories.index') }}">Post Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>

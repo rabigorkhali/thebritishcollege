@@ -15,9 +15,7 @@ setTimeout(function () {
 /* -- START DELETE MODAL SCRIPT --*/
 $(document).ready(function () {
   $(".delete-button").click(function () {
-    var email = $(this).data("email");
     var actionUrl = $(this).data("actionurl");
-    $("#confirmationText").text("Are you sure you want to delete user " + email + "?");
     $("#deleteForm").attr("action", actionUrl);
   });
 });
