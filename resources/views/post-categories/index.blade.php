@@ -36,8 +36,11 @@
     </tbody>
 
 </table>
-{{-- <ul class="pagination">
-    {{ $postCategories->links() }}
-</ul> --}}
+<div class="row">
+    <ul class="pagination">
+        {{ $postCategories->links() }}
+    </ul>
+</div>
+
 @include('layouts.delete-modal')
 @endsection

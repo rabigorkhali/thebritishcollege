@@ -39,8 +39,8 @@
         </tbody>
 
     </table>
-{{--     <ul class="pagination">
+    <ul class="pagination">
         {{ $users->links() }}
-    </ul> --}}
+    </ul>
     @include('layouts.delete-modal')
 @endsection
