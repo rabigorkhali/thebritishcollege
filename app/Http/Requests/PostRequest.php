@@ -26,8 +26,8 @@ class PostRequest extends FormRequest
     {
 
         $validate = [
-            'title' => 'required|max:255',
-            'body' => 'required',
+            'title' => 'required|min:3|max:255',
+            'body' => 'required|min:3|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:25048',
         ];
 

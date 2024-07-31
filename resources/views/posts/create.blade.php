@@ -10,17 +10,15 @@
                 <div class="invalid-feedback">{{ $errors->first('title') }}</div>
             </div>
             <div class="form-group col-md-6">
-                <label for="categories">Categories:*</label>
+                <label for="categories">Categories:</label>
                 
                 <select id="categories" multiple name="categories[]" class="form-control @if ($errors->first('categories'))is-invalid @endif">
-                        <option>Select</option>
                     @foreach($postCategories as $postCategoryKey => $postCategoryDatum)
                         <option @if(old('categories') && in_array($postCategoryDatum->id, old('categories'))) selected @endif   value="{{$postCategoryDatum->id}}">{{$postCategoryDatum->name}}</option>
                     @endforeach
                 </select>
                 <div class="invalid-feedback">{{ $errors->first('categories') }}</div>
-            </div>
-            
+            </div> 
         </div>
 
         <div class="form-row">

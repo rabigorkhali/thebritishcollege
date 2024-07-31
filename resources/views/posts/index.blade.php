@@ -6,6 +6,7 @@
         <tr>
             <th>ID</th>
             <th>Title</th>
+            <th>Categories</th>
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -18,8 +19,17 @@
                     <td>{{ $i = 1 + $keyPostDatum }}</td>
                     <td>{{ $datumPost->title ?? '' }}</td>
                     <td>
+                        @php        $categories = ''; @endphp
+                        @foreach ($datumPost->categories as $datumCategory)
+                                @php
+                                    $categories .= $datumCategory->name . ', '
+                                @endphp
+                        @endforeach
+                        {{ rtrim(trim($categories), ',') ?? 'N/A' }}
+                    </td>
+                    <td>
                         @if($datumPost->image)
-                            <img class="thumbnail img" height="20" src="{{asset('/uploads/posts/'.$datumPost->image)}}">
+                            <img class="thumbnail img" height="20" src="{{asset('/uploads/posts/' . $datumPost->image)}}">
                         @endif
                     </td>
                     <td>

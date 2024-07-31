@@ -5,16 +5,17 @@ namespace App\Services;
 use App\Models\Post;
 use App\Models\PostCategory;
 use DB;
+use File;
 
 class PostService extends Service
 {
-    protected $model, $postCategory,$imageUploadPath;
+    protected $model, $postCategory, $imageUploadPath;
 
     public function __construct(Post $model, PostCategory $postCategory)
     {
         parent::__construct($model);
         $this->postCategory = $postCategory;
-        $this->imageUploadPath='uploads/posts';
+        $this->imageUploadPath = 'uploads/posts';
 
     }
     public function createPageData($request)
@@ -32,20 +33,72 @@ class PostService extends Service
             DB::beginTransaction();
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName=time() . '.' . $image->getClientOriginalExtension();
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = 'uploads/posts/' . $imageName;
                 $image->move(public_path('uploads/posts'), $imagePath);
                 $requestData['image'] = $imageName;
             }
-            $createResponse= $this->model->create($requestData);
+            $createResponse = $this->model->create($requestData);
             $createResponse->categories()->sync($categories);
-            
+
             DB::commit();
             return $createResponse;
         } catch (\Throwable $th) {
             DB::rollback();
             return false;
         }
+    }
+
+    public function editPageData($request, $id)
+    {
+        return [
+            'item' => $this->itemByIdentifier($id),
+            'postCategories' => $this->postCategory->get()
+        ];
+    }
+
+    public function update($request, $id)
+    {
+        $thisData = $this->itemByIdentifier($id);
+        try {
+            $requestData = $request->except('_token', 'image', 'categories');
+            $categories = $request->get('categories');
+            DB::beginTransaction();
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = 'uploads/posts/' . $imageName;
+                $image->move(public_path('uploads/posts'), $imagePath);
+                $requestData['image'] = $imageName;
+                $oldImage = $thisData->image;
+                $oldImagePath = public_path('uploads/posts/' . $oldImage);
+                if (File::exists($oldImagePath) && $oldImage) {
+                    File::delete($oldImagePath);
+                }
+            }
+            $thisData->fill($requestData)->save();
+            $thisData->categories()->sync($categories);
+            $updatedData = $this->itemByIdentifier($id);
+            DB::commit();
+            return $updatedData;
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return false;
+        }
+
+    }
+
+    //delete a record
+
+    public function delete($request, $id)
+    {
+        $thisData = $this->itemByIdentifier($id);
+        $oldImage = $thisData->image;
+        $oldImagePath = public_path('uploads/posts/' . $oldImage);
+        if (File::exists($oldImagePath) && $oldImage) {
+            File::delete($oldImagePath);
+        }
+        return $thisData->delete();
     }
 
 }
