@@ -11,17 +11,17 @@
     </thead>
     <tbody>
         @if ($postCategories->count())
-            @foreach ($postCategories as $keyUserDatum => $datumUser)
+            @foreach ($postCategories as $keyPostCategory => $datumPostCategory)
                 <tr>
 
-                    <td>{{ $i = 1 + $keyUserDatum }}</td>
-                    <td>{{ $datumUser->name ?? '' }}</td>
+                    <td>{{ $i = 1 + $keyPostCategory }}</td>
+                    <td>{{ $datumPostCategory->name ?? '' }}</td>
                     <td>
-                        <a class="btn btn-sm btn-dark" href="{{ URL::to($indexUrl) . '/' . $datumUser->id }}">View</a>
+                        <a class="btn btn-sm btn-dark" href="{{ URL::to($indexUrl) . '/' . $datumPostCategory->id }}">View</a>
                         <a class="btn btn-sm btn-primary"
-                            href="{{ URL::to($indexUrl) . '/' . $datumUser->id . '/edit' }}">Edit</a>
+                            href="{{ URL::to($indexUrl) . '/' . $datumPostCategory->id . '/edit' }}">Edit</a>
                         <button class="btn btn-danger btn-sm delete-button" data-toggle="modal" data-target="#confirmationModal"
-                            data-actionurl="{{ URL::to($indexUrl) . '/' . $datumUser->id }}">Delete</button>
+                            data-actionurl="{{ URL::to($indexUrl) . '/' . $datumPostCategory->id }}">Delete</button>
                     </td>
 
                 </tr>
