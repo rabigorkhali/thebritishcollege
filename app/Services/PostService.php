@@ -32,9 +32,10 @@ class PostService extends Service
             DB::beginTransaction();
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imagePath = 'uploads/posts/' . time() . '.' . $image->getClientOriginalExtension();
+                $imageName=time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = 'uploads/posts/' . $imageName;
                 $image->move(public_path('uploads/posts'), $imagePath);
-                $requestData['image'] = $imagePath;
+                $requestData['image'] = $imageName;
             }
             $createResponse= $this->model->create($requestData);
             $createResponse->categories()->sync($categories);

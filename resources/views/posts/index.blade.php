@@ -19,7 +19,7 @@
                     <td>{{ $datumPost->title ?? '' }}</td>
                     <td>
                         @if($datumPost->image)
-                            <img class="thumbnail img" height="20" src="{{asset($datumPost->image)}}">
+                            <img class="thumbnail img" height="20" src="{{asset('/uploads/posts/'.$datumPost->image)}}">
                         @endif
                     </td>
                     <td>
