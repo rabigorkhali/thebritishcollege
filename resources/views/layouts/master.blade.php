@@ -10,13 +10,10 @@
 
     <title>{{  'Rabi Gorkhali' }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-    <!-- Scripts -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
@@ -32,7 +29,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">{{ __(ucwords(str_replace('-', ' ', $title??''))) }}</div>
+                            <div class="card-header">{{ __(ucwords(str_replace('-', ' ', $title ?? ''))) }}</div>
                             <div class="card-body">
                                 <!-- Success Message -->
                                 @if ($errors->first('alert-success'))
@@ -68,5 +65,9 @@
 
 {{-- SCRIPT --}}
 @include('layouts.script')
-
+<script>
+        $(document).ready(function() {
+            $('#categories').select2();
+        });
+    </script>
 </html>

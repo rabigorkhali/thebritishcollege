@@ -87,15 +87,13 @@ class Service
         return [];
     }
 
-    // Data for edit page
     public function editPageData($request, $id)
     {
         return [
-            'item' => $this->itemByIdentifier($id),
+            'item' => $this->itemByIdentifier($id)
         ];
     }
 
-    // get query for modal
 
     public function query()
     {

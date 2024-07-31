@@ -28,15 +28,22 @@
                 @else
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item"> 
-                                <a class="nav-link {{ str_contains(Route::currentRouteName(), 'users') ? 'active' : '' }} " href="{{ route('users.index') }}" href="{{ route('users.index') }}">Users</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ str_contains(Route::currentRouteName(), 'posts') ? 'active' : '' }} "
+                                    href="{{ route('posts.index') }}">Posts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ str_contains(Route::currentRouteName(), 'post-categories') ? 'active' : '' }} " href="{{ route('post-categories.index') }}">Post Categories</a>
+                                <a class="nav-link {{ str_contains(Route::currentRouteName(), 'post-categories') ? 'active' : '' }} "
+                                    href="{{ route('post-categories.index') }}">Post Categories</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ str_contains(Route::currentRouteName(), 'users') ? 'active' : '' }} "
+                                    href="{{ route('users.index') }}" href="{{ route('users.index') }}">Users</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                            document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>

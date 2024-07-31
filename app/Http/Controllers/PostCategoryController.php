@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PostCategoryController extends ResourceController
 {
-    protected $userService;
+    protected $service;
 
     public function __construct(PostCategoryService $service)
     {
