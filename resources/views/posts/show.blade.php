@@ -3,8 +3,8 @@
 @section('content')
 <table>
     <tr>
-        <td><label for="name">{{__('Name')}}: </label></td>
-        <td><label for="name">{{ $posts->name }}</label></td>
+        <td><label for="name">{{__('Title')}}: </label></td>
+        <td><label for="name">{{ $posts->title }}</label></td>
     </tr>
     <tr>
         <td><label for="name">{{__('Category')}}: </label></td>

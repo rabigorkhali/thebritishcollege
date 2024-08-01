@@ -19,8 +19,19 @@
 <body>
     <div id="app">
         @include('layouts.navbar')
+
         <main class="py-4">
+
             <div class="container">
+                @guest
+                @else
+                    @if(str_contains(Route::currentRouteName(), 'home'))
+                        <center>
+                            <h1 class="mb-4">{{ __('WELCOME !') }} {{ Auth::user()->name }}</h1>
+                        </center>
+                    @endif
+                @endguest
+
                 @if (isset($indexUrl) && $indexUrl == env('SYSTEM_PREFIX', '') . '/' . last(explode('/', url()->current())))
                     <a class="btn btn-sm btn-primary mb-1 float-right"
                         href="{{ URL::to($indexUrl . '/create') }}">Create</a>
