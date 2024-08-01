@@ -15,13 +15,22 @@ use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 
 /**
- * @OA\Info(
- *     version="1.0.0",
- *     title="API Documentation",
- *     description="API Documentation using Swagger",
- *     @OA\Contact(
- *         email="developer@example.com"
- *     )
+ * @OA\OpenApi(
+ *     @OA\Info(
+ *         title="API Documentation",
+ *         version="1.0.0"
+ *     ),
+
+ *     @OA\Components(
+ *         @OA\SecurityScheme(
+ *             securityScheme="bearerAuth",
+ *             type="apiKey",
+ *             in="header",
+ *             name="Authorization",
+ *             description="Enter your Bearer token in the format: Bearer {token}"
+ *         )
+ *     ),
+ *     security={{ "bearerAuth": {} }}
  * )
  */
 class PostController extends Controller
@@ -54,7 +63,6 @@ class PostController extends Controller
      *     @OA\Response(response=401, description="Unauthorized"),
      *     @OA\Response(response=403, description="Forbidden"),
      *     @OA\Response(response=404, description="Not Found"),
-     *     security={{"sanctum": {}}},
      * )
      */
     public function index()
@@ -74,49 +82,42 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/posts",
-     *     summary="Create a new post",
-     *     tags={"Posts"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 required={"title", "body"},
-     *                 @OA\Property(property="title", type="string", example="Sample Title"),
-     *                 @OA\Property(property="body", type="string", example="Sample body text"),
-     *                 @OA\Property(
-     *                     property="image",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="Upload an image"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Post created successfully",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="title", type="string", example="Sample Title"),
-     *             @OA\Property(property="body", type="string", example="Sample body text"),
-     *             @OA\Property(property="image", type="string", example="sample.jpg")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validation error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="errors", type="object")
-     *         )
-     *     )
-     * )
-     */
+/**
+ * @OA\Post(
+ *     path="/posts",
+ *     summary="Create a new post",
+ *     tags={"Posts"},
+ *     security={{"sanctum": {}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"title", "body"},
+ *             @OA\Property(property="title", type="string", example="New Post Title"),
+ *             @OA\Property(property="body", type="string", example="Content of the new post"),
+ *             @OA\Property(property="image", type="string", format="binary")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Post created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="title", type="string", example="New Post Title"),
+ *             @OA\Property(property="body", type="string", example="Content of the new post"),
+ *             @OA\Property(property="image", type="string", example="image.png")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Bad Request"
+ *     )
+ * )
+ */
+
 
     public function store(PostRequest $request)
     {
