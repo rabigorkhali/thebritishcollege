@@ -20,6 +20,7 @@
         </div>
         <div class="col-md-4 mb-2">
             <button type="submit" class="btn btn-sm btn-warning">{{__('Search')}}</button>
+            <a href="{{ url()->current() }}" class="btn btn-sm btn-success">{{__('Clear')}}</a>
         </div>
     </form>
 </div>

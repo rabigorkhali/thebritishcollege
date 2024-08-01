@@ -7,8 +7,8 @@
                 <div class="card">
 
                     <span class="p-2">
-                        Default User Email: rabigorkhaly@gmail.com <br>
-                        Default Password: rabi@123
+                        Default User Email:rabigorkhaly@gmail.com <br>
+                        Default Password:rabi@123
                     </span>
                     <div class="card">
                         <div class="card-header">{{ __('Login') }}</div>
