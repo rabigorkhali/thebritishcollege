@@ -1,5 +1,18 @@
 @extends('layouts.master')
+@section('filter')
 
+<div class="row">
+    <form method="get" action="" style="display:flex;">
+        <div class="col-md-4 mb-2">
+            <input type="text" value="{{request('search')}}" name="search" class="form-control"
+                placeholder="Search by name..">
+        </div>
+        <div class="col-md-4 mb-2">
+            <button type="submit" class="btn btn-sm btn-warning">{{__('Search')}}</button>
+        </div>
+    </form>
+</div>
+@endsection
 @section('content')
 <table class="table">
     <thead>

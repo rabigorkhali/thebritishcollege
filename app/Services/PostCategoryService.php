@@ -11,4 +11,22 @@ class PostCategoryService extends Service
         parent::__construct($model);
     }
 
+    public function getAllData($data, $selectedColumns = [], $pagination = true)
+    {
+        $query = $this->query();
+        if (count($selectedColumns) > 0) {
+            $query->select($selectedColumns);
+        }
+        if ($data['search'] ?? null) {
+            $query->where('name', 'like', '%' . $data['search'] . '%');
+        }
+
+        if ($pagination) {
+            return $query->orderBy('created_at', 'DESC')->paginate(5);
+        } else {
+            return $query->orderBy('created_at', 'DESC')->get();
+        }
+
+    }
+
 }

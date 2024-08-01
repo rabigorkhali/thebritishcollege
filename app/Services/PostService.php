@@ -21,7 +21,6 @@ class PostService extends Service
 
     public function getAllData($data, $selectedColumns = [], $pagination = true)
     {
-        try{
         $query = $this->query();
         if (count($selectedColumns) > 0) {
             $query->select($selectedColumns);
@@ -42,12 +41,7 @@ class PostService extends Service
         } else {
             return $query->orderBy('created_at', 'DESC')->get();
         }
-    }
-    catch(\Throwable $th)
-    {
-        dd($th);
 
-    }
     }
 
     public function indexPageData($request)
