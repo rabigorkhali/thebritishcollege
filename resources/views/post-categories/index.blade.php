@@ -50,11 +50,13 @@
     </tbody>
 
 </table>
-<div class="row">
-    <ul class="pagination">
-        {{ $postCategories->links() }}
-    </ul>
-</div>
 
+<div class="row">
+    <div class="col">
+        <nav>
+         {{ $postCategories->appends(request()->query())->links('pagination::bootstrap-4') }}
+        </nav>
+    </div>
+</div>
 @include('layouts.delete-modal')
 @endsection
