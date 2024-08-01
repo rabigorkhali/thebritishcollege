@@ -22,10 +22,12 @@
         <main class="py-4">
             <div class="container">
                 @if (isset($indexUrl) && $indexUrl == env('SYSTEM_PREFIX', '') . '/' . last(explode('/', url()->current())))
-                    <a class="btn btn-sm btn-primary mb-1" href="{{ URL::to($indexUrl . '/create') }}">Create</a>
+                    <a class="btn btn-sm btn-primary mb-1 float-right"
+                        href="{{ URL::to($indexUrl . '/create') }}">Create</a>
                 @elseif(isset($indexUrl))
-                    <a class="btn btn-sm btn-success mb-1" href="{{ URL::to($indexUrl) }}">Back</a>
+                    <a class="btn btn-sm btn-success mb-1 float-right" href="{{ URL::to($indexUrl) }}">Back</a>
                 @endif
+                @yield('filter')
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
@@ -66,8 +68,9 @@
 {{-- SCRIPT --}}
 @include('layouts.script')
 <script>
-        $(document).ready(function() {
-            $('#categories').select2();
-        });
-    </script>
+    $(document).ready(function () {
+        $('#categories').select2();
+    });
+</script>
+
 </html>

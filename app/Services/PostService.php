@@ -18,6 +18,46 @@ class PostService extends Service
         $this->imageUploadPath = 'uploads/posts';
 
     }
+
+    public function getAllData($data, $selectedColumns = [], $pagination = true)
+    {
+        try{
+        $query = $this->query();
+        if (count($selectedColumns) > 0) {
+            $query->select($selectedColumns);
+        }
+        if ($data['search'] ?? null) {
+            $query->where(function ($query) use ($data) {
+                $query->orwhere('title', 'like', '%' . $data['search'] . '%')
+                    ->orwhere('body', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if ($data['categories'] ?? null) {
+            $query->whereHas('categories', function ($query) use ($data) {
+                $query->wherein('post_category_id', $data['categories']);
+            });
+        }
+        if ($pagination) {
+            return $query->orderBy('created_at', 'DESC')->paginate(5);
+        } else {
+            return $query->orderBy('created_at', 'DESC')->get();
+        }
+    }
+    catch(\Throwable $th)
+    {
+        dd($th);
+
+    }
+    }
+
+    public function indexPageData($request)
+    {
+        return [
+            'items' => $this->getAllData($request),
+            'postCategories' => $this->postCategory->get()
+        ];
+    }
+
     public function createPageData($request)
     {
         return [

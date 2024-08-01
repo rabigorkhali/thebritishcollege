@@ -25,7 +25,7 @@ class Service
             $query->select($selectedColumns);
         }
         if ($pagination) {
-            return $query->orderBy('created_at', 'DESC')->paginate(51);
+            return $query->orderBy('created_at', 'DESC')->paginate(5);
         } else {
             return $query->orderBy('created_at', 'DESC')->get();
         }
