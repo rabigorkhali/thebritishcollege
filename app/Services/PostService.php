@@ -127,6 +127,10 @@ class PostService extends Service
     public function delete($request, $id)
     {
         $thisData = $this->itemByIdentifier($id);
+        if (!$thisData) {
+            $response['alert-danger'] = __('messages.data_not_found');
+            return $response;
+        }
         $oldImage = $thisData->image;
         $oldImagePath = public_path('uploads/posts/' . $oldImage);
         if (File::exists($oldImagePath) && $oldImage) {

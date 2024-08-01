@@ -68,7 +68,7 @@ class Service
 
     public function itemByIdentifier($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->find($id);
     }
 
     // Data for index page

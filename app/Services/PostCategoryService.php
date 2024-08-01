@@ -32,6 +32,10 @@ class PostCategoryService extends Service
     public function delete($request, $id)
     {
         $item = $this->itemByIdentifier($id);
+        if (!$item) {
+            $response['alert-danger'] = __('messages.data_not_found');
+            return $response;
+        }
         $inUse = PostCategoryPost::where('post_category_id', $id)->count();
         if ($inUse) {
             $response['alert-danger'] = __('messages.in_use_message');
