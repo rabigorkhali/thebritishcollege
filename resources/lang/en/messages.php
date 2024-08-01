@@ -25,6 +25,7 @@ return [
     'update_message' => 'Successfully updated.',
     'create_message_custom_message' => 'Successfully created. :custom_message',
     'create_message' => 'Successfully created.',
+    'in_use_message' => 'Data in use.',
 
 
 ];
