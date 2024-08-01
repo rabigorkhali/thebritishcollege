@@ -6,24 +6,42 @@ use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\PostCategoryRequest;
 use App\Services\PostCategoryService;
+use App\Transformers\PostCategoryTransformer;
 use Illuminate\Http\Request;
 use App\Models\PostCategory;
 use Throwable;
 use DB;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class PostCategoryController extends Controller
 {
 
-    protected $service;
+    protected $service, $fractal;
 
     public function __construct(PostCategoryService $service)
     {
         $this->service = $service;
+        $this->fractal = new Manager();
+
     }
 
     public function index()
     {
-        return PostCategory::all();
+        $postCategories = PostCategory::paginate(5); 
+
+        $resource = new Collection($postCategories->items(), new PostCategoryTransformer());
+        $data = $this->fractal->createData($resource)->toArray();
+
+        return response()->json([
+            'data' => $data,
+            'meta' => [
+                'current_page' => $postCategories->currentPage(),
+                'last_page' => $postCategories->lastPage(),
+                'per_page' => $postCategories->perPage(),
+                'total' => $postCategories->total(),
+            ]
+        ]);
     }
 
     public function store(PostCategoryRequest $request)
