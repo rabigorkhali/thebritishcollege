@@ -14,7 +14,25 @@ class UserService extends Service
     {
         parent::__construct($model);
     }
+    public function getAllData($data, $selectedColumns = [], $pagination = true)
+    {
+        $query = $this->query();
+        if (count($selectedColumns) > 0) {
+            $query->select($selectedColumns);
+        }
+        if ($data['search'] ?? null) {
+            $query->where(function ($query) use ($data) {
+                $query->orwhere('name', 'like', '%' . $data['search'] . '%')
+                    ->orwhere('email', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if ($pagination) {
+            return $query->orderBy('created_at', 'DESC')->paginate(5);
+        } else {
+            return $query->orderBy('created_at', 'DESC')->get();
+        }
 
+    }
     public function store($request)
     {
         $data = $request->except('_token');
