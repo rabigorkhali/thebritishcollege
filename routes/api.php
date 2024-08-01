@@ -29,6 +29,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
+Route::middleware('auth:sanctum')->group(function () {
+
 // Post routes
 Route::get('posts', [PostController::class, 'index']);
 Route::get('posts/{id}', [PostController::class, 'show']);
@@ -42,3 +44,4 @@ Route::post('post-categories', [PostCategoryController::class, 'store']);
 Route::put('post-categories/{id}', [PostCategoryController::class, 'update']);
 Route::delete('post-categories/{id}', [PostCategoryController::class, 'destroy']);
 
+});
