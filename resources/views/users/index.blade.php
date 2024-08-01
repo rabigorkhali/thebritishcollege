@@ -56,7 +56,7 @@
 <div class="row">
     <div class="col">
         <nav>
-            {{ $postCategories->appends(request()->query())->links('pagination::bootstrap-4') }}
+            {{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}
         </nav>
     </div>
 </div>

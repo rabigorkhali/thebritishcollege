@@ -34,6 +34,7 @@
         <tr>
             <th>ID</th>
             <th>Title</th>
+            <th>Body</th>
             <th>Categories</th>
             <th>Image</th>
             <th>Actions</th>
@@ -45,7 +46,8 @@
                 <tr>
 
                     <td>{{ $i = 1 + $keyPostDatum }}</td>
-                    <td>{{ $datumPost->title ?? '' }}</td>
+                    <td> <a style="text-decoration:none;" href="{{ URL::to($indexUrl) . '/' . $datumPost->id }}" >{{ $datumPost->title ?? '' }}</a></td>
+                    <td>{{ substr($datumPost->body ?? '',0,50 )}}...</td>
                     <td>
                         @php        $categories = ''; @endphp
                         @foreach ($datumPost->categories as $datumCategory)
@@ -64,7 +66,7 @@
                         <a class="btn btn-sm btn-dark" href="{{ URL::to($indexUrl) . '/' . $datumPost->id }}">View</a>
                         <a class="btn btn-sm btn-primary"
                             href="{{ URL::to($indexUrl) . '/' . $datumPost->id . '/edit' }}">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-button" data-toggle="modal" data-target="#confirmationModal"
+                        <button class="mt-2 btn btn-danger btn-sm delete-button" data-toggle="modal" data-target="#confirmationModal"
                             data-actionurl="{{ URL::to($indexUrl) . '/' . $datumPost->id }}">Delete</button>
                     </td>
 
@@ -83,7 +85,7 @@
 <div class="row">
     <div class="col">
         <nav>
-            {{ $postCategories->appends(request()->query())->links('pagination::bootstrap-4') }}
+            {{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
         </nav>
     </div>
 </div>
